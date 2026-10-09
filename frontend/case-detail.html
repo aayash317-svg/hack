@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Details | Apex Institute</title>
+  <link rel="stylesheet" href="/static/css/variables.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/layout.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/forms.css">
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+  <link rel="stylesheet" href="/static/css/responsive.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-container">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <div class="brand-icon">🛡️</div>
+        <div>
+          <h1 style="font-size: 1.1rem;">Authority Safety Console</h1>
+          <span id="userDisplayName" style="font-size: 0.78rem; color: var(--color-primary);">Loading profile...</span>
+        </div>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/dashboard.html">Case Queue</a></li>
+          <li><a href="/review.html">Match Reviews</a></li>
+          <li><a href="/admin.html">Admin</a></li>
+          <li><button id="logoutBtn" class="btn btn-sm btn-secondary">Sign Out</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+      <div>
+        <a href="/dashboard.html" style="font-size: 0.85rem; color: var(--text-muted);">&larr; Back to Case Queue</a>
+        <div style="display: flex; align-items: center; gap: 12px; margin-top: 6px;">
+          <h1 id="caseRefHeading" class="font-mono" style="font-size: 1.8rem; color: var(--color-primary);">REF-XXXX</h1>
+          <div id="caseBadge"></div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <a href="/review.html" class="btn btn-sm btn-secondary">Check Match Reviews</a>
+      </div>
+    </div>
+
+    <!-- Two Column Grid -->
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;" class="review-matrix">
+      <!-- Left Column: Primary Case Information -->
+      <div>
+        <!-- Incident Overview Card -->
+        <div class="card" style="margin-bottom: 24px;">
+          <h2 style="font-size: 1.15rem; margin-bottom: 16px;">Incident Report Overview</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; font-size: 0.88rem;">
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Category</span>
+              <div id="detailCategory" style="font-weight: 600;">—</div>
+            </div>
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Incident Date</span>
+              <div id="detailDate" style="font-weight: 600;">—</div>
+            </div>
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Location / Digital Platform</span>
+              <div id="detailLocation" style="font-weight: 600;">—</div>
+            </div>
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Submission Mode</span>
+              <div id="detailMode" style="font-weight: 600;">—</div>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 16px;">
+            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Incident Narrative</span>
+            <p id="detailDescription" style="font-size: 0.95rem; color: var(--text-primary); margin-top: 8px; line-height: 1.6; white-space: pre-wrap; background: var(--bg-surface-elevated); padding: 16px; border-radius: var(--radius-md);"></p>
+          </div>
+        </div>
+
+        <!-- Pattern Group & Section 23 Repeat Level Card -->
+        <div class="card" style="margin-bottom: 24px;">
+          <h2 style="font-size: 1.15rem; margin-bottom: 14px;">Section 23 Repeat-Report Pattern</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 0.88rem;">
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Case Group Membership</span>
+              <div id="detailPatternGroup" style="font-weight: 600; color: #c084fc;">—</div>
+            </div>
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Current Escalation Level</span>
+              <div id="detailTier" style="font-weight: 600; color: var(--color-primary);">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Voluntary Suspect Allegations -->
+        <div class="card" style="margin-bottom: 24px;">
+          <h2 style="font-size: 1.15rem; margin-bottom: 8px;">Voluntary Suspect Details</h2>
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px;">Unverified allegations voluntary supplied by reporter.</p>
+          <div id="suspectsList"></div>
+        </div>
+
+        <!-- Evidence Vault -->
+        <div class="card" style="margin-bottom: 24px;">
+          <h2 style="font-size: 1.15rem; margin-bottom: 8px;">Private Evidence Vault</h2>
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px;">Files stored in private storage. Downloads are authorized and logged.</p>
+          <div id="evidenceList"></div>
+        </div>
+
+        <!-- Identity Vault -->
+        <div class="card">
+          <h2 style="font-size: 1.15rem; margin-bottom: 14px;">Reporter Identity Protection</h2>
+          <div id="identityVaultSection"></div>
+        </div>
+      </div>
+
+      <!-- Right Column: Status Actions & Escalation -->
+      <div>
+        <!-- Update Status Card -->
+        <div class="card" style="margin-bottom: 24px;">
+          <h3 style="font-size: 1.1rem; margin-bottom: 14px;">Update Case Status</h3>
+          <form id="statusUpdateForm">
+            <div class="form-group">
+              <label class="form-label" for="newStatusSelect">New Status</label>
+              <select id="newStatusSelect" class="form-select">
+                <option value="submitted">Submitted</option>
+                <option value="under_review">Under Review</option>
+                <option value="pending_match_review">Pattern Review</option>
+                <option value="awaiting_information">Awaiting Information</option>
+                <option value="escalated">Escalated</option>
+                <option value="resolved">Resolved</option>
+                <option value="closed">Closed</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="statusReason">Mandatory Rationale</label>
+              <textarea id="statusReason" class="form-textarea" placeholder="Document why the status is being updated..." style="min-height: 80px;" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Apply Status Update</button>
+          </form>
+        </div>
+
+        <!-- Manual Escalation Card -->
+        <div class="card" style="margin-bottom: 24px;">
+          <h3 style="font-size: 1.1rem; margin-bottom: 14px;">Escalation Trigger</h3>
+          <form id="manualEscalateForm">
+            <div class="form-group">
+              <label class="form-label" for="escalateLevelSelect">Target Authority Tier</label>
+              <select id="escalateLevelSelect" class="form-select">
+                <option value="1">Level 1: Head of Department (HOD)</option>
+                <option value="2">Level 2: Dean of Student Affairs</option>
+                <option value="3">Level 3: Higher Authority / Ombudsman</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="escalateReason">Escalation Justification</label>
+              <textarea id="escalateReason" class="form-textarea" placeholder="State reason for escalating..." style="min-height: 80px;" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-urgent" style="width: 100%;">Escalate Case</button>
+          </form>
+        </div>
+
+        <!-- Case History Timeline -->
+        <div class="card">
+          <h3 style="font-size: 1.1rem; margin-bottom: 14px;">Audit & Status History</h3>
+          <div id="statusHistoryList">
+            <p style="font-size: 0.8rem; color: var(--text-muted);">No history transitions recorded.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Exceptional Clearance Modal -->
+  <div class="modal-overlay" id="unmaskModal">
+    <div class="modal-body">
+      <div class="modal-header">
+        <h3 style="color: var(--color-urgent);">⚠️ Exceptional Identity Access Request</h3>
+        <button class="modal-close" onclick="closeModal('unmaskModal')">&times;</button>
+      </div>
+      <p style="font-size: 0.85rem; margin-bottom: 16px;">
+        Reporter identity is protected by default. Accessing contact information requires a formal legal or safeguarding justification. 
+        <strong>This action will be permanently recorded in the immutable audit log.</strong>
+      </p>
+
+      <form id="unmaskForm">
+        <div class="form-group">
+          <label class="form-label" for="unmaskReason">Justification for Access <span class="required">*</span></label>
+          <textarea id="unmaskReason" class="form-textarea" placeholder="Explain why identity disclosure is necessary for this safeguarding action..." required minlength="10"></textarea>
+        </div>
+
+        <div style="display: flex; gap: 12px; justify-content: flex-end;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('unmaskModal')">Cancel</button>
+          <button type="submit" class="btn btn-urgent">Confirm Access & Log Audit Event</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/components.js"></script>
+  <script src="/static/js/auth.js"></script>
+  <script src="/static/js/case-detail.js"></script>
+</body>
+</html>

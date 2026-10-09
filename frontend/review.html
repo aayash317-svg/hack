@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Related-Case Match Reviews | Apex Institute</title>
+  <link rel="stylesheet" href="/static/css/variables.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/layout.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/forms.css">
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+  <link rel="stylesheet" href="/static/css/responsive.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-container">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <div class="brand-icon">🛡️</div>
+        <div>
+          <h1 style="font-size: 1.1rem;">Authority Safety Console</h1>
+          <span id="userDisplayName" style="font-size: 0.78rem; color: var(--color-primary);">Loading profile...</span>
+        </div>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/dashboard.html">Case Queue</a></li>
+          <li><a href="/review.html" class="active">Match Reviews</a></li>
+          <li><a href="/admin.html">Admin</a></li>
+          <li><button id="logoutBtn" class="btn btn-sm btn-secondary">Sign Out</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+    <div style="margin-bottom: 28px;">
+      <a href="/dashboard.html" style="font-size: 0.85rem; color: var(--text-muted);">&larr; Back to Dashboard</a>
+      <h1 style="font-size: 2rem; margin-top: 8px;">Related-Case Pattern Reviews</h1>
+      <p>
+        Section 23 Repeat-Report Counting Policy: Algorithmic proposals remain <strong>pending</strong> until an authorized reviewer assesses them. 
+        Only confirmed patterns increment repeat-report counts and advance escalation tiers.
+      </p>
+    </div>
+
+    <!-- Empty State -->
+    <div id="reviewEmptyState" class="card" style="display: none; text-align: center; padding: 50px 20px;">
+      <div style="font-size: 2.5rem; margin-bottom: 12px;">✅</div>
+      <h2 style="font-size: 1.3rem;">All Pattern Reviews Cleared</h2>
+      <p style="margin-top: 6px;">No candidate report matches are currently awaiting human review.</p>
+    </div>
+
+    <!-- Review Queue Container -->
+    <div id="reviewQueueContainer"></div>
+  </main>
+
+  <!-- Decision Confirmation Modal -->
+  <div class="modal-overlay" id="decisionModal">
+    <div class="modal-body">
+      <div class="modal-header">
+        <h3 id="decisionModalTitle">Confirm Review Decision</h3>
+        <button class="modal-close" onclick="closeModal('decisionModal')">&times;</button>
+      </div>
+      <p id="decisionModalDesc" style="font-size: 0.85rem; margin-bottom: 18px; color: var(--text-secondary);"></p>
+
+      <form id="decisionForm">
+        <div class="form-group">
+          <label class="form-label" for="decisionReasonInput">Mandatory Reviewer Rationale <span class="required">*</span></label>
+          <textarea id="decisionReasonInput" class="form-textarea" placeholder="Document the factual basis for this determination..." required minlength="3"></textarea>
+          <div class="form-hint">All review decisions and rationales are permanently recorded in the audit log.</div>
+        </div>
+
+        <div style="display: flex; gap: 12px; justify-content: flex-end;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('decisionModal')">Cancel</button>
+          <button type="submit" id="confirmDecisionBtn" class="btn btn-primary">Submit Decision</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/components.js"></script>
+  <script src="/static/js/auth.js"></script>
+  <script src="/static/js/review.js"></script>
+</body>
+</html>

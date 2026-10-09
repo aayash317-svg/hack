@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Safety Report | Apex Institute</title>
+  <link rel="stylesheet" href="/static/css/variables.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/layout.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/forms.css">
+  <link rel="stylesheet" href="/static/css/responsive.css">
+</head>
+<body>
+  <!-- Pinned Emergency Safeguard Banner -->
+  <aside class="emergency-banner">
+    <div>
+      <span class="urgent-badge">🚨 IMMEDIATE DANGER</span>
+      <span>If you are in immediate physical danger, call the 24/7 Security Helpline: <strong class="helpline-link">+91 00000 00000</strong> immediately.</span>
+    </div>
+  </aside>
+
+  <!-- Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="/index.html" class="brand-link">
+        <div class="brand-icon">🛡️</div>
+        <div class="brand-text">
+          <h1>Apex Campus Safety</h1>
+          <span>Anti-Ragging & Harassment Protection</span>
+        </div>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/track.html">Track Report</a></li>
+          <li><a href="/login.html">Staff Portal</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-wrapper" style="max-width: 860px;">
+    <div style="margin-bottom: 28px;">
+      <a href="/index.html" style="font-size: 0.85rem; color: var(--text-muted);">&larr; Back to Home</a>
+      <h1 style="font-size: 2.2rem; margin-top: 8px;">Submit a Safety Concern</h1>
+      <p>Your report is handled under institutional confidentiality standards. Choose your preferred mode below.</p>
+    </div>
+
+    <form id="reportForm">
+      <!-- Section 1: Reporting Mode -->
+      <section class="card" style="margin-bottom: 24px;">
+        <h2 style="font-size: 1.15rem; margin-bottom: 14px;">1. Select Reporting Mode</h2>
+        <div class="choice-grid">
+          <div class="choice-card selected" data-mode="anonymous">
+            <div class="choice-icon">🛡️</div>
+            <h3>Anonymous Report</h3>
+            <p>No name, email, or student ID is collected. Zero identity data is saved in our database. You will receive a one-time secret tracking key.</p>
+          </div>
+          <div class="choice-card" data-mode="confidential">
+            <div class="choice-icon">🔒</div>
+            <h3>Confidential Report</h3>
+            <p>Provide contact details so authorized authorities can follow up. Your identity is stored in an isolated vault and concealed from ordinary staff views.</p>
+          </div>
+        </div>
+
+        <!-- Optional Confidential Fields -->
+        <div id="confidentialFields" style="display: none; border-top: 1px solid var(--border-subtle); padding-top: 20px;">
+          <div style="background: rgba(56, 182, 255, 0.08); border-left: 3px solid var(--color-primary); padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 18px; font-size: 0.82rem;">
+            <strong>Confidentiality Notice:</strong> Contact details are stored in separated identity storage and are accessible only under an authorized, audited review process.
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="reporterName">Full Name</label>
+              <input type="text" id="reporterName" class="form-input" placeholder="Your full name">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reporterEmail">College Email</label>
+              <input type="email" id="reporterEmail" class="form-input" placeholder="student@campus.edu">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="reporterPhone">Phone Number</label>
+              <input type="tel" id="reporterPhone" class="form-input" placeholder="+91 00000 00000">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reporterDept">Department / Year</label>
+              <input type="text" id="reporterDept" class="form-input" placeholder="e.g. Mechanical, 2nd Year">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reporterId">Student ID / Roll Number (Optional)</label>
+            <input type="text" id="reporterId" class="form-input" placeholder="e.g. CS-2024-089">
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Incident Type & Category -->
+      <section class="card" style="margin-bottom: 24px;">
+        <h2 style="font-size: 1.15rem; margin-bottom: 14px;">2. Incident Type & Classification</h2>
+        <div class="choice-grid" style="margin-bottom: 20px;">
+          <div class="choice-card selected" data-type="offline">
+            <div class="choice-icon">🏫</div>
+            <h3>In-Person / Offline Ragging</h3>
+            <p>Stalking, physical intimidation, hostel bullying, verbal abuse, or harassment occurring on/near campus.</p>
+          </div>
+          <div class="choice-card" data-type="online">
+            <div class="choice-icon">💻</div>
+            <h3>Digital / Online Harassment</h3>
+            <p>Fake accounts, abusive messaging, cyberstalking, unauthorized photo sharing, or digital threats.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="categorySelect">Incident Category <span class="required">*</span></label>
+          <select id="categorySelect" class="form-select" required></select>
+        </div>
+      </section>
+
+      <!-- Section 3: Incident Details & Urgent Flag -->
+      <section class="card" style="margin-bottom: 24px;">
+        <h2 style="font-size: 1.15rem; margin-bottom: 14px;">3. Incident Specifics</h2>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="incidentDate">Date of Incident <span class="required">*</span></label>
+            <input type="date" id="incidentDate" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="incidentTime">Approximate Time</label>
+            <input type="text" id="incidentTime" class="form-input" placeholder="e.g. 7:30 PM, or Late Evening">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="locationInput">Location or Digital Platform <span class="required">*</span></label>
+          <input type="text" id="locationInput" class="form-input" placeholder="e.g., Hostel Block B Corridor, Library 2nd Floor, Instagram DMs" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="descriptionInput">Describe What Happened <span class="required">*</span></label>
+          <textarea id="descriptionInput" class="form-textarea" placeholder="Please describe the incident in your own words. Focus on facts, words spoken, or conduct observed..." required minlength="10"></textarea>
+          <div class="form-hint">Statements submitted are treated as allegations and reviewed by designated authorities before conclusions are drawn.</div>
+        </div>
+
+        <!-- Urgent Safety Switch -->
+        <div class="urgent-toggle-box">
+          <input type="checkbox" id="urgentCheckbox" class="urgent-checkbox">
+          <div class="urgent-toggle-text">
+            <h4>Flag as Urgent Safety Risk</h4>
+            <p>Check this if there is ongoing physical intimidation, immediate danger, or repeated confrontation requiring priority review without waiting for match thresholds.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Voluntary Suspect Allegations -->
+      <section class="card" style="margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h2 style="font-size: 1.15rem;">4. Suspect Details (Optional)</h2>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Leave blank if unknown</span>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">
+          Suspect details are recorded as unverified allegations and are visible only to authorized investigators.
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="suspectName">Name or Nickname</label>
+            <input type="text" id="suspectName" class="form-input" placeholder="Suspect name, if known">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="suspectDept">Department / Year</label>
+            <input type="text" id="suspectDept" class="form-input" placeholder="Suspect branch or year, if known">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="suspectDesc">Identifying Details or Description</label>
+          <input type="text" id="suspectDesc" class="form-input" placeholder="Clothing, physical traits, social media handle, or vehicle info">
+        </div>
+      </section>
+
+      <!-- Section 5: Evidence Attachment -->
+      <section class="card" style="margin-bottom: 28px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h2 style="font-size: 1.15rem;">5. Protected Evidence Upload (Optional)</h2>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">PNG, JPG, PDF up to 5MB</span>
+        </div>
+        <p style="font-size: 0.84rem; margin-bottom: 16px;">
+          Lack of evidence will never prevent you from getting help. Upload screenshots, messages, or documents if you have them.
+        </p>
+
+        <input type="file" id="fileInput" style="display: none;" accept="image/png, image/jpeg, application/pdf">
+        <div class="dropzone" id="dropzone">
+          <div class="dropzone-icon">📁</div>
+          <div class="dropzone-text">Click or drag & drop evidence file here</div>
+          <div class="dropzone-hint">Files are stored in private, unguessable storage. Never exposed via public links.</div>
+        </div>
+        <div id="filePreview" class="file-preview" style="display: none;"></div>
+      </section>
+
+      <div style="display: flex; justify-content: flex-end; margin-bottom: 60px;">
+        <button type="submit" id="submitBtn" class="btn btn-lg btn-primary" style="min-width: 260px;">
+          Submit Secure Report
+        </button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Success Credential Modal -->
+  <div class="modal-overlay" id="credentialsModal">
+    <div class="modal-body" style="text-align: center;">
+      <div style="font-size: 3rem; margin-bottom: 12px;">✅</div>
+      <h2 style="font-size: 1.6rem; margin-bottom: 8px;">Report Successfully Registered</h2>
+      <p style="margin-bottom: 24px;">Your concern has been safely ingested into the institutional safety queue.</p>
+
+      <div id="modalUrgentAlert" style="display: none; background: rgba(255, 90, 95, 0.15); border: 1px solid var(--color-urgent-border); color: #fff; padding: 12px; border-radius: var(--radius-md); font-size: 0.85rem; margin-bottom: 18px; text-align: left;"></div>
+
+      <div style="text-align: left; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 24px;">
+        <div style="margin-bottom: 16px;">
+          <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Public Report Reference</span>
+          <div class="credential-box">
+            <span class="cred-val" id="displayPublicRef">REF-XXXX-XXXX</span>
+            <button class="btn btn-sm btn-secondary" id="copyRefBtn">Copy</button>
+          </div>
+        </div>
+
+        <div>
+          <span style="font-size: 0.75rem; color: var(--color-warning); text-transform: uppercase;">Private Tracking Secret (Shown Only Once)</span>
+          <div class="credential-box" style="border-color: rgba(245, 158, 11, 0.35);">
+            <span class="cred-val" id="displayTrackingSecret" style="color: var(--color-warning);">TRK-xxxxxxxxxxxx</span>
+            <button class="btn btn-sm btn-secondary" id="copySecretBtn">Copy</button>
+          </div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">
+            ⚠️ <strong>Save this secret now.</strong> For your protection, tracking secrets cannot be recovered by administrators or system staff.
+          </p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn btn-primary" id="copyAllCredsBtn">📋 Copy All Credentials</button>
+        <a href="/track.html" class="btn btn-secondary">Go to Tracking Portal</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/components.js"></script>
+  <script src="/static/js/report.js"></script>
+</body>
+</html>

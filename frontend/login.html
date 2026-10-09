@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Portal Login | Apex Institute</title>
+  <link rel="stylesheet" href="/static/css/variables.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/layout.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/forms.css">
+  <link rel="stylesheet" href="/static/css/responsive.css">
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px;">
+  <div class="card" style="max-width: 460px; width: 100%; padding: 36px;">
+    <div style="text-align: center; margin-bottom: 28px;">
+      <div class="brand-icon" style="margin: 0 auto 12px; width: 44px; height: 44px; font-size: 1.3rem;">🛡️</div>
+      <h1 style="font-size: 1.6rem; margin-bottom: 6px;">Authority Portal Access</h1>
+      <p style="font-size: 0.85rem;">Authorized campus personnel only: HOD, Dean, Higher Authority & Admin.</p>
+    </div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label class="form-label" for="loginEmail">Institutional Email</label>
+        <input type="email" id="loginEmail" class="form-input" placeholder="authority@campus.edu" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" class="form-input" placeholder="••••••••••••" required>
+      </div>
+
+      <button type="submit" id="loginBtn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 8px;">
+        Sign In to Portal
+      </button>
+    </form>
+
+    <!-- Quick Demo Credential Fillers for Presentation / Testing -->
+    <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-subtle);">
+      <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 10px;">
+        Quick Demo Roles:
+      </span>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <button type="button" class="btn btn-sm btn-secondary demo-fill-btn" data-email="hod.cse@campus.edu" data-pass="HodPass2026!">
+          HOD (Level 1)
+        </button>
+        <button type="button" class="btn btn-sm btn-secondary demo-fill-btn" data-email="dean.studentaffairs@campus.edu" data-pass="DeanPass2026!">
+          Dean (Level 2)
+        </button>
+        <button type="button" class="btn btn-sm btn-secondary demo-fill-btn" data-email="director.office@campus.edu" data-pass="DirectorPass2026!">
+          Higher Authority (L3)
+        </button>
+        <button type="button" class="btn btn-sm btn-secondary demo-fill-btn" data-email="admin@campus.edu" data-pass="AdminPass2026!">
+          Administrator
+        </button>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 24px;">
+      <a href="/index.html" style="font-size: 0.82rem; color: var(--text-muted);">&larr; Return to Public Landing Page</a>
+    </div>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/components.js"></script>
+  <script src="/static/js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.getElementById('loginForm');
+      const emailInput = document.getElementById('loginEmail');
+      const passInput = document.getElementById('loginPassword');
+      const loginBtn = document.getElementById('loginBtn');
+
+      // Demo fillers
+      document.querySelectorAll('.demo-fill-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          emailInput.value = btn.getAttribute('data-email');
+          passInput.value = btn.getAttribute('data-pass');
+          showToast(`Filled credentials for ${btn.textContent.trim()}`, 'info');
+        });
+      });
+
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'Authenticating...';
+
+        try {
+          const res = await auth.login(emailInput.value.trim(), passInput.value);
+          showToast(`Welcome, ${res.name}!`, 'success');
+          setTimeout(() => {
+            if (res.role === 'administrator') {
+              window.location.href = '/admin.html';
+            } else {
+              window.location.href = '/dashboard.html';
+            }
+          }, 600);
+        } catch (err) {
+          showToast(err.message || 'Login failed', 'error');
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'Sign In to Portal';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Administration | Apex Institute</title>
+  <link rel="stylesheet" href="/static/css/variables.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/layout.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/forms.css">
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+  <link rel="stylesheet" href="/static/css/responsive.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-container">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <div class="brand-icon">🛡️</div>
+        <div>
+          <h1 style="font-size: 1.1rem;">Authority Safety Console</h1>
+          <span id="userDisplayName" style="font-size: 0.78rem; color: var(--color-primary);">Loading profile...</span>
+        </div>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/dashboard.html">Case Queue</a></li>
+          <li><a href="/review.html">Match Reviews</a></li>
+          <li><a href="/admin.html" class="active">Admin</a></li>
+          <li><button id="logoutBtn" class="btn btn-sm btn-secondary">Sign Out</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+    <div style="margin-bottom: 28px;">
+      <h1 style="font-size: 2rem;">System Administration & Security</h1>
+      <p>Manage authority accounts, configure institutional policies, and inspect immutable audit trail records.</p>
+    </div>
+
+    <!-- Account Management Section -->
+    <div class="card" style="margin-bottom: 30px;">
+      <div class="card-header">
+        <div>
+          <h2 style="font-size: 1.25rem;">Authority Accounts</h2>
+          <p style="font-size: 0.8rem;">Role-based personnel for HOD, Dean, Higher Authority, and Administrators.</p>
+        </div>
+        <button class="btn btn-primary btn-sm" id="openCreateUserModalBtn">+ Create Authority Account</button>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Department</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Immutable Audit Trail Section -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h2 style="font-size: 1.25rem;">Security Audit Trail</h2>
+          <p style="font-size: 0.8rem;">Chronological, tamper-evident log of authentications, status changes, and identity disclosures.</p>
+        </div>
+        <span class="badge badge-submitted">Immutable Log</span>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Resource</th>
+              <th>Actor</th>
+              <th>Stated Justification / Reason</th>
+              <th>IP Address</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody id="auditTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Create User Modal -->
+  <div class="modal-overlay" id="createUserModal">
+    <div class="modal-body">
+      <div class="modal-header">
+        <h3>Create New Authority Account</h3>
+        <button class="modal-close" onclick="closeModal('createUserModal')">&times;</button>
+      </div>
+
+      <form id="createUserForm">
+        <div class="form-group">
+          <label class="form-label" for="userName">Full Name <span class="required">*</span></label>
+          <input type="text" id="userName" class="form-input" placeholder="e.g. Dr. Anil Gupta" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="userEmail">Institutional Email <span class="required">*</span></label>
+          <input type="email" id="userEmail" class="form-input" placeholder="gupta.hod@campus.edu" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="userPassword">Initial Password <span class="required">*</span></label>
+          <input type="password" id="userPassword" class="form-input" placeholder="••••••••••••" required minlength="8">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="userRole">Authority Role <span class="required">*</span></label>
+          <select id="userRole" class="form-select" required>
+            <option value="hod">Head of Department (HOD - Level 1)</option>
+            <option value="dean">Dean of Student Affairs (Level 2)</option>
+            <option value="higher_authority">Higher Authority / Ombudsman (Level 3)</option>
+            <option value="administrator">System Administrator</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="userDept">Department</label>
+          <input type="text" id="userDept" class="form-input" placeholder="e.g. Electrical Engineering">
+        </div>
+
+        <div style="display: flex; gap: 12px; justify-content: flex-end;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('createUserModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/components.js"></script>
+  <script src="/static/js/auth.js"></script>
+  <script src="/static/js/admin.js"></script>
+</body>
+</html>

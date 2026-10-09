@@ -1,0 +1,212 @@
+/* Form Controls */
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.form-label .required {
+  color: var(--color-urgent);
+  margin-left: 4px;
+}
+
+.form-hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.form-input, .form-textarea, .form-select {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.92rem;
+  transition: all var(--transition-fast);
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  background: var(--bg-input-focus);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-subtle);
+  outline: none;
+}
+
+.form-input::placeholder, .form-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A0A0A5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+/* Interactive Card Radio Choices */
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.choice-card {
+  border: 2px solid var(--border-subtle);
+  background: var(--bg-panel);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.choice-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-surface-elevated);
+}
+
+.choice-card.selected {
+  border-color: var(--color-primary);
+  background: linear-gradient(180deg, var(--color-primary-subtle) 0%, var(--bg-panel) 100%);
+  box-shadow: 0 0 20px rgba(56, 182, 255, 0.15);
+}
+
+.choice-card .choice-icon {
+  font-size: 1.6rem;
+  margin-bottom: 4px;
+  color: var(--color-primary);
+}
+
+.choice-card h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.choice-card p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Urgent Switch Box */
+.urgent-toggle-box {
+  background: linear-gradient(90deg, rgba(255, 90, 95, 0.1) 0%, var(--bg-panel) 100%);
+  border: 1px solid var(--color-urgent-border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin: 24px 0;
+  transition: box-shadow var(--transition-fast);
+}
+
+.urgent-toggle-box:hover {
+  box-shadow: var(--shadow-glow-red);
+}
+
+.urgent-checkbox {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--color-urgent);
+  border-radius: 6px;
+  background: var(--bg-input);
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  margin-top: 2px;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.urgent-checkbox:checked {
+  background: var(--color-urgent);
+}
+
+.urgent-checkbox:checked::before {
+  content: "✔";
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.urgent-toggle-text h4 {
+  color: var(--color-urgent);
+  font-size: 0.98rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.urgent-toggle-text p {
+  font-size: 0.82rem;
+}
+
+/* File Upload Dropzone */
+.dropzone {
+  border: 2px dashed var(--border-subtle);
+  background: var(--bg-input);
+  border-radius: var(--radius-lg);
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropzone:hover, .dropzone.dragover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-subtle);
+  box-shadow: var(--shadow-glow-cyan);
+}
+
+.dropzone-icon {
+  font-size: 2rem;
+  color: var(--color-primary);
+}
+
+.dropzone-text {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.dropzone-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.file-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  margin-top: 12px;
+  font-size: 0.85rem;
+}

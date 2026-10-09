@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authority Dashboard | Apex Institute</title>
+  <link rel="stylesheet" href="/static/css/variables.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/layout.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/forms.css">
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+  <link rel="stylesheet" href="/static/css/responsive.css">
+</head>
+<body>
+  <!-- Authority Top Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <div class="brand-icon">🛡️</div>
+        <div>
+          <h1 style="font-size: 1.1rem;">Authority Safety Console</h1>
+          <span id="userDisplayName" style="font-size: 0.78rem; color: var(--color-primary);">Loading profile...</span>
+        </div>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/dashboard.html" class="active">Case Queue</a></li>
+          <li><a href="/review.html">Match Reviews</a></li>
+          <li><a href="/admin.html">Admin</a></li>
+          <li><button id="logoutBtn" class="btn btn-sm btn-secondary">Sign Out</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-wrapper">
+    <!-- KPI Metrics -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <span class="metric-title">Active Cases</span>
+        <div class="metric-value" id="metricTotal">0</div>
+        <span class="metric-sub">Assigned to institution</span>
+      </div>
+
+      <div class="metric-card urgent">
+        <span class="metric-title" style="color: var(--color-urgent);">🚨 Urgent Alerts</span>
+        <div class="metric-value" id="metricUrgent" style="color: var(--color-urgent);">0</div>
+        <span class="metric-sub">Priority safety intervention</span>
+      </div>
+
+      <div class="metric-card">
+        <span class="metric-title">Pending Match Reviews</span>
+        <div class="metric-value" id="metricPendingMatch">0</div>
+        <span class="metric-sub"><a href="/review.html" style="color: var(--color-primary);">Open review queue &rarr;</a></span>
+      </div>
+
+      <div class="metric-card">
+        <span class="metric-title">Escalated Cases</span>
+        <div class="metric-value" id="metricEscalated" style="color: #c084fc;">0</div>
+        <span class="metric-sub">Level 2 (Dean) / Level 3 (Higher)</span>
+      </div>
+    </div>
+
+    <!-- Case Queue Section -->
+    <div class="card">
+      <div class="card-header" style="flex-wrap: wrap; gap: 16px;">
+        <div>
+          <h2 style="font-size: 1.3rem;">Assigned Case Queue</h2>
+          <p style="font-size: 0.82rem;">Reporter identity is concealed by default. Click a case to review details or take action.</p>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <input type="text" id="searchInput" class="form-input" placeholder="Search reference, location..." style="width: 240px; padding: 8px 12px; font-size: 0.85rem;">
+        </div>
+      </div>
+
+      <!-- Filters Bar -->
+      <div style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;">
+        <button class="btn btn-sm btn-primary filter-btn" data-filter="all">All Cases</button>
+        <button class="btn btn-sm btn-secondary filter-btn" data-filter="urgent">🚨 Urgent Only</button>
+        <button class="btn btn-sm btn-secondary filter-btn" data-filter="pending">Pattern Assessment</button>
+        <button class="btn btn-sm btn-secondary filter-btn" data-filter="escalated">Escalated</button>
+        <button class="btn btn-sm btn-secondary filter-btn" data-filter="under_review">Under Review</button>
+      </div>
+
+      <!-- Table Wrapper -->
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Ref ID</th>
+              <th>Category & Location</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Pattern / Group</th>
+              <th>Mode</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="casesTableBody">
+            <tr>
+              <td colspan="7" style="text-align: center; padding: 30px; color: var(--text-muted);">
+                Loading case records...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/components.js"></script>
+  <script src="/static/js/auth.js"></script>
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
