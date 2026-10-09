@@ -4,29 +4,54 @@ A privacy-first, full-stack digital safety platform designed to empower students
 
 ---
 
-## 🌟 Key Features
+---
 
-1. **Anonymous & Confidential Modes**:
-   - **Anonymous**: Zero identity records stored. No login required. Issues a one-time cryptographic tracking secret.
-   - **Confidential**: Reporter contact information is query-isolated in a separate vault table (`reporter_identities`) and concealed from standard staff views.
-2. **Section 23 Repeat-Report Pattern Review**:
-   - Algorithmic proposals are flagged as `pending` candidate pairs for **human review only**.
-   - Reviewers examine side-by-side incident summaries on `review.html` and record a mandatory rationale.
-   - **Confirmed Pattern Ladder**:
-     - 1 distinct confirmed report in group &rarr; **Level 1 (HOD)**
-     - 2 distinct confirmed reports in group &rarr; **Level 2 (Dean)**
-     - 3+ distinct confirmed reports in group &rarr; **Level 3 (Higher Authority)**
-   - Unreviewed or rejected matches never inflate repeat-report counts.
-3. **Urgent Fast-Track Safety**:
-   - Incidents with immediate safety risks (`is_urgent=True`) route directly to priority safeguarding review without waiting for match thresholds.
-4. **Sleek Modern UI/UX**:
-   - `#121212` Workspace Canvas
-   - `#1E1E1E` Elevated Panels
-   - `#38B6FF` Primary Cyan Accent
-   - `#FF5A5F` Urgent Coral Alert
-   - WCAG 2.1 AA/AAA accessible focus rings, keyboard navigability, and responsive layouts.
-5. **Private Evidence Storage**:
-   - Uploaded files are stored in private disk storage with random UUID keys outside the web root. Download requests are authorized and logged to an audit trail.
+## 🌟 Comprehensive Features Guide
+
+### 1. Core Platform Capabilities
+- **Confidential vs. Anonymous Reporting Modes**:
+  - *Anonymous Mode*: Zero personal or contact data collected. Zero rows written to `reporter_identities`. No student login or session cookies required. Returns a one-time high-entropy tracking secret (`TRK-...`).
+  - *Confidential Mode*: Reporter contact details (Full Name, College Email, Phone, Department, Roll No) are physically isolated into an encrypted/protected vault table (`reporter_identities`). Standard authority dashboards and case list responses strictly redact and omit identity fields. Exceptional access requires formal recorded justification and logs an immutable audit event (`IDENTITY_UNMASKED`).
+- **Comprehensive Incident Taxonomy**:
+  - *In-Person / Offline Ragging*: Stalking, physical abuse, verbal confrontation, hostel intimidation, and coercion.
+  - *Digital / Online Harassment*: Impersonation, fake profiles, obscene or abusive content distribution, cyberbullying, and unconsented media sharing.
+- **Dual-Credential Zero-Leakage Tracking**:
+  - Secure tracking combines a public case identifier (`REF-YYYY-XXXX`) with a 24-byte cryptographic tracking secret (`TRK-...`) hashed using **Argon2id**.
+  - Public tracking portal returns milestone timelines only (`Submitted` &rarr; `Under Review` &rarr; `Escalated` &rarr; `Resolved`), strictly stripping internal investigator remarks, suspect details, and reporter identity.
+- **Private Evidence Vault**:
+  - Uploaded screenshots, documents, and images (PNG, JPG, PDF up to 5MB) are renamed with unguessable UUID storage keys and stored on the private filesystem outside the web root.
+  - Files are streamed strictly through the authenticated endpoint `GET /api/evidence/{id}`, which verifies user role permissions and writes an `EVIDENCE_ACCESSED` audit entry.
+- **Immediate Urgent Safety Route**:
+  - Reports with imminent physical risk can be flagged as urgent (`is_urgent=True`).
+  - Urgent alerts bypass repeated-report thresholds, routing immediately to Level 1 safeguarding authorities with pinned visual cues (`#FF5A5F`) and emergency contact details.
+
+### 2. Advanced Workflow & Security Features
+- **Section 23 Repeat-Report Pattern Review**:
+  - The `MatchingService` scans active complaints across category, type, location keywords, and voluntary suspect descriptors.
+  - Candidate correlations are flagged into `case_links` in a **`pending`** status for **human review only**.
+  - Algorithmic proposals never determine guilt and never automatically increment incident counts.
+- **Human-in-the-Loop Review Queue (`review.html`)**:
+  - Authorized officials inspect candidate reports side-by-side in a comparative matrix.
+  - Explicit action deck: **Confirm Related Pattern**, **Reject Match**, or **Defer / Request More Info**.
+  - A documented factual rationale is mandatory before confirming or rejecting any relationship.
+- **Section 23 Progressive Escalation Ladder**:
+  - When matches are confirmed, cases are bound into a `case_group` via `case_group_members` (enforcing `UNIQUE(case_group_id, complaint_id)` to prevent artificial count inflation).
+  - Escalation tiers are evaluated automatically inside database transactions:
+    - **1 distinct confirmed report** in group &rarr; **Level 1 (HOD)**
+    - **2 distinct confirmed reports** in group &rarr; **Level 2 (Dean)**
+    - **3+ distinct confirmed reports** in group &rarr; **Level 3 (Higher Authority / Ombudsman)**
+- **Role-Based Access Control (RBAC) & Specialized Dashboards**:
+  - Distinct access controls and interfaces for **Student**, **HOD**, **Dean**, **Higher Authority**, and **Administrator**.
+  - Backend dependency guards (`require_roles(...)`) reject unauthorized role access with HTTP 403.
+- **Real-Time In-App Notifications**:
+  - Authority officials receive in-app notifications on case escalations and candidate match proposals.
+  - External email/SMS notification integration is pluggable for a future operational phase.
+- **Tamper-Evident Security Audit Trail**:
+  - Immutable chronological log in `audit_logs` tracking logins, case status transitions, exceptional identity unmasking, and review decisions with actor ID, reason, and IP address.
+- **Sleek Modern Dark UI/UX**:
+  - Elevated dark surfaces (`#121212` canvas / `#1E1E1E` panels / `#38B6FF` interactive cyan / `#FF5A5F` urgent coral).
+  - Full keyboard accessibility, custom 2px focus rings, screen-reader ARIA live regions, and `prefers-reduced-motion` compliance.
+  - 1-click **Quick Demo Role Fillers** on the login page for effortless live presentations.
 
 ---
 
