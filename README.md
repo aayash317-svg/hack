@@ -2,7 +2,8 @@
 
 A privacy-first, full-stack digital safety platform designed to empower students to report ragging, harassment, stalking, and cyberbullying while providing campus authorities with an accountable, auditable, and human-reviewed case management system.
 
----
+🌐 **Live Public Demo**: [https://progressive-chronic-authorization-hey.trycloudflare.com](https://progressive-chronic-authorization-hey.trycloudflare.com)  
+🐙 **GitHub Repository**: [https://github.com/aayash317-svg/hack](https://github.com/aayash317-svg/hack)
 
 ---
 
@@ -229,7 +230,13 @@ PYTHONPATH=. ./backend/.venv/bin/python database/seeds/seed_demo.py
 ```bash
 PYTHONPATH=. ./backend/.venv/bin/uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
 ```
-Open your browser at: **`http://localhost:8000`**
+Open your browser locally at: **`http://localhost:8000`**
+
+### 5. Expose & Host with Public URL (Cloudflare Tunnel)
+```bash
+cloudflared tunnel --url http://127.0.0.1:8000
+```
+This generates a secure public HTTPS URL (e.g., `https://*.trycloudflare.com`) routing directly to your application without needing port-forwarding or public IP configuration.
 
 ---
 
