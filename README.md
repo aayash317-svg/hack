@@ -30,6 +30,155 @@ A privacy-first, full-stack digital safety platform designed to empower students
 
 ---
 
+## 🗄️ Entity-Relationship (ER) Diagram
+
+The system architecture implements data isolation (separating reporter identities from complaint logs) and explicit group membership for Section 23 repeat-report escalation.
+
+```mermaid
+erDiagram
+    users {
+        int id PK
+        string name
+        string email UK
+        string password_hash
+        string role
+        string department
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+    complaints {
+        int id PK
+        string public_reference UK
+        string tracking_secret_hash
+        string reporting_mode
+        string type
+        string category
+        date incident_date
+        string incident_time
+        string location_or_platform
+        text description
+        boolean is_urgent
+        string status
+        datetime created_at
+        datetime updated_at
+    }
+    reporter_identities {
+        int id PK
+        int complaint_id FK,UK
+        string full_name
+        string email
+        string phone
+        string department
+        string student_id_number
+        string access_policy
+        datetime created_at
+    }
+    suspect_details {
+        int id PK
+        int complaint_id FK
+        string name
+        string department
+        string phone
+        text other_description
+        string details_visibility
+        datetime created_at
+    }
+    evidence {
+        int id PK
+        int complaint_id FK
+        string storage_key UK
+        string original_filename_display
+        string verified_media_type
+        int file_size
+        datetime uploaded_at
+    }
+    case_links {
+        int id PK
+        int complaint_id FK
+        int related_complaint_id FK
+        string review_status
+        int reviewed_by FK
+        datetime reviewed_at
+        text reason
+        datetime created_at
+    }
+    case_groups {
+        int id PK
+        string group_reference UK
+        int created_by FK
+        string status
+        datetime created_at
+    }
+    case_group_members {
+        int id PK
+        int case_group_id FK
+        int complaint_id FK
+        datetime added_at
+    }
+    escalations {
+        int id PK
+        int case_group_id FK
+        int complaint_id FK
+        int level
+        int authority_user_id FK
+        text reason
+        string status
+        datetime created_at
+    }
+    case_status_history {
+        int id PK
+        int complaint_id FK
+        string previous_status
+        string new_status
+        int changed_by FK
+        text reason
+        datetime created_at
+    }
+    notifications {
+        int id PK
+        int recipient_user_id FK
+        string case_reference
+        string title
+        text message
+        string channel
+        boolean is_read
+        datetime created_at
+    }
+    audit_logs {
+        int id PK
+        int actor_user_id FK
+        string action
+        string resource_type
+        string resource_id
+        text reason
+        string ip_address
+        datetime timestamp
+    }
+
+    users ||--o{ complaints : "submits (optional)"
+    users ||--o{ escalations : "assigned_to"
+    users ||--o{ notifications : "receives"
+    users ||--o{ audit_logs : "performs_action"
+    users ||--o{ case_links : "reviews"
+    users ||--o{ case_groups : "creates"
+    users ||--o{ case_status_history : "updated_by"
+
+    complaints ||--o| reporter_identities : "has isolated identity"
+    complaints ||--o{ suspect_details : "mentions"
+    complaints ||--o{ evidence : "attaches"
+    complaints ||--o{ case_links : "proposes link A"
+    complaints ||--o{ case_links : "proposes link B"
+    complaints ||--o{ case_group_members : "belongs_to"
+    complaints ||--o{ case_status_history : "logs status transitions"
+    complaints ||--o{ escalations : "escalated_individually"
+
+    case_groups ||--o{ case_group_members : "contains confirmed members"
+    case_groups ||--o{ escalations : "escalated_via Section 23"
+```
+
+---
+
 ## 🚀 Quick Start Guide
 
 ### 1. Requirements
