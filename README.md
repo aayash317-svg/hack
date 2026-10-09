@@ -205,34 +205,65 @@ erDiagram
 
 ---
 
-## 🚀 Quick Start Guide
+## 🚀 Quick Start & Run Commands
 
-### 1. Requirements
-- Python 3.11+
-- Git
+### ⚡ Option A: 1-Click Convenience Scripts (Recommended)
 
-### 2. Virtual Environment Setup
+Three pre-configured executable shell scripts are provided in the project root:
+
 ```bash
-# Clone or navigate to directory
+# 1. Start Dev Server (Serves API & Frontend at http://localhost:8000)
+./run.sh
+
+# 2. Seed Synthetic Demo Data (Accounts & Cases)
+./seed.sh
+
+# 3. Run Automated Tests (8/8 test suite)
+./test.sh
+```
+
+---
+
+### 🛠️ Option B: Direct Virtual Environment Commands (Zero Global Config Needed)
+
+Run directly using the project's bundled virtual environment (`backend/.venv`):
+
+```bash
+# Run Development Server
+./backend/.venv/bin/python -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
+
+# Seed Database
+./backend/.venv/bin/python database/seeds/seed_demo.py
+
+# Run Test Suite
+./backend/.venv/bin/pytest backend/tests/ -v
+```
+
+---
+
+### 🌐 Option C: Standard Virtual Environment Workflow
+
+```bash
+# 1. Navigate to project root
 cd "/Users/manoranjankumar.s/Documents/new hack"
 
-# Create venv and install dependencies
-/opt/homebrew/bin/python3.11 -m venv backend/.venv
-./backend/.venv/bin/pip install -r backend/requirements.txt
+# 2. Activate virtual environment
+source backend/.venv/bin/activate
+
+# 3. Seed demo accounts and sample cases
+python database/seeds/seed_demo.py
+
+# 4. Start local server
+uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
+
+# 5. Run test suite
+pytest backend/tests/ -v
 ```
 
-### 3. Seed Demo Data
-```bash
-PYTHONPATH=. ./backend/.venv/bin/python database/seeds/seed_demo.py
-```
+---
 
-### 4. Run Development Server
-```bash
-PYTHONPATH=. ./backend/.venv/bin/uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
-```
-Open your browser locally at: **`http://localhost:8000`**
+### 🌍 Hosting & Exposing with a Public URL (Cloudflare Tunnel)
 
-### 5. Expose & Host with Public URL (Cloudflare Tunnel)
 ```bash
 cloudflared tunnel --url http://127.0.0.1:8000
 ```
