@@ -2,7 +2,7 @@
 
 A privacy-first, full-stack digital safety platform designed to empower students to report ragging, harassment, stalking, and cyberbullying while providing campus authorities with an accountable, auditable, and human-reviewed case management system.
 
-🌐 **Live Public Demo**: [https://progressive-chronic-authorization-hey.trycloudflare.com](https://progressive-chronic-authorization-hey.trycloudflare.com)  
+🌐 **Live Public Demo**: [https://apparently-returned-forget-verse.trycloudflare.com](https://apparently-returned-forget-verse.trycloudflare.com)  
 🐙 **GitHub Repository**: [https://github.com/aayash317-svg/hack](https://github.com/aayash317-svg/hack)
 
 ---

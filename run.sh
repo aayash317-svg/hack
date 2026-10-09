@@ -18,6 +18,6 @@ fi
 
 echo "🛡️  Starting Campus Safety & Harassment Reporting System..."
 echo "📍 Local Web & API: http://localhost:8000"
-echo "🌐 Public Tunnel:   https://progressive-chronic-authorization-hey.trycloudflare.com"
+echo "🌐 Public Tunnel:   https://apparently-returned-forget-verse.trycloudflare.com"
 
 exec "$PYTHON_EXEC" -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
