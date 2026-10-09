@@ -43,6 +43,11 @@
 
     <!-- Search Form Card -->
     <div class="card" style="margin-bottom: 30px;">
+      <!-- Auto-populate Notice Banner -->
+      <div id="autofillBanner" style="display: none; background: rgba(56, 182, 255, 0.12); border: 1px solid var(--accent-primary); border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; color: var(--accent-primary); font-size: 0.9rem;">
+        ⚡ <strong>Credentials Auto-Loaded:</strong> Reference and secret from your recent submission have been automatically filled.
+      </div>
+
       <form id="trackForm">
         <div class="form-group">
           <label class="form-label" for="refInput">Public Reference Code</label>
@@ -50,7 +55,10 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="secretInput">Private Tracking Secret</label>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label class="form-label" for="secretInput" style="margin-bottom: 0;">Private Tracking Secret</label>
+            <button type="button" id="toggleSecretBtn" style="background: none; border: none; color: var(--accent-primary); cursor: pointer; font-size: 0.82rem; padding: 0;">Show Secret</button>
+          </div>
           <input type="password" id="secretInput" class="form-input font-mono" placeholder="e.g. TRK-xxxxxxxxxxxxxxxx" required>
           <div class="form-hint">Both the reference and secret are required to verify access.</div>
         </div>

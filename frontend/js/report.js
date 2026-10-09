@@ -181,6 +181,20 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('displayPublicRef').textContent = result.public_reference;
       document.getElementById('displayTrackingSecret').textContent = result.tracking_secret;
 
+      // Automatically persist credentials in sessionStorage & wire direct tracking URL
+      sessionStorage.setItem('last_track_ref', result.public_reference);
+      sessionStorage.setItem('last_track_sec', result.tracking_secret);
+
+      const trackUrl = `/track.html?ref=${encodeURIComponent(result.public_reference)}&sec=${encodeURIComponent(result.tracking_secret)}`;
+      const goToTrackingBtn = document.getElementById('goToTrackingBtn');
+      if (goToTrackingBtn) {
+        goToTrackingBtn.href = trackUrl;
+        goToTrackingBtn.onclick = () => {
+          sessionStorage.setItem('last_track_ref', result.public_reference);
+          sessionStorage.setItem('last_track_sec', result.tracking_secret);
+        };
+      }
+
       if (result.urgent_guidance) {
         const uBox = document.getElementById('modalUrgentAlert');
         if (uBox) {
@@ -211,7 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('copyAllCredsBtn')?.addEventListener('click', () => {
     const ref = document.getElementById('displayPublicRef').textContent;
     const sec = document.getElementById('displayTrackingSecret').textContent;
-    const text = `Campus Safety Report Credentials\nReference: ${ref}\nTracking Secret: ${sec}\nTrack at: ${window.location.origin}/track.html`;
+    const trackUrl = `${window.location.origin}/track.html?ref=${encodeURIComponent(ref)}&sec=${encodeURIComponent(sec)}`;
+    const text = `Campus Safety Report Credentials\nReference: ${ref}\nTracking Secret: ${sec}\nTrack at: ${trackUrl}`;
     copyToClipboard(text, 'All credentials copied! Keep them secure.');
   });
 });

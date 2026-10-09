@@ -19,6 +19,7 @@ A privacy-first, full-stack digital safety platform designed to empower students
 - **Dual-Credential Zero-Leakage Tracking**:
   - Secure tracking combines a public case identifier (`REF-YYYY-XXXX`) with a 24-byte cryptographic tracking secret (`TRK-...`) hashed using **Argon2id**.
   - Public tracking portal returns milestone timelines only (`Submitted` &rarr; `Under Review` &rarr; `Escalated` &rarr; `Resolved`), strictly stripping internal investigator remarks, suspect details, and reporter identity.
+  - *Automated Credential Forwarding & Pre-Fill*: When students register a case, clicking "Go to Tracking Portal" automatically pre-populates and authenticates both credentials into the tracker via URL query parameters and local session fallback, eliminating manual copy-paste friction. Includes a reveal/hide toggle for the private secret.
 - **Private Evidence Vault**:
   - Uploaded screenshots, documents, and images (PNG, JPG, PDF up to 5MB) are renamed with unguessable UUID storage keys and stored on the private filesystem outside the web root.
   - Files are streamed strictly through the authenticated endpoint `GET /api/evidence/{id}`, which verifies user role permissions and writes an `EVIDENCE_ACCESSED` audit entry.
