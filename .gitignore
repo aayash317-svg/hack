@@ -21,7 +21,11 @@ __pycache__/
 storage/evidence/*
 !storage/evidence/.gitkeep
 
+# Logs
+*.log
+
 # Operating System & IDE
 .DS_Store
 .idea/
 .vscode/
+
